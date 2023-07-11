@@ -1,0 +1,57 @@
+First Name: Jingyi
+
+Last Name: Zhao
+
+NYU ID: jz3676
+
+=======================================================================================
+Files submitted:
+
+src:
+	sched-policies.c (Question1,2,3)
+    sched-simulator.c (Question1,2,3)
+
+include:
+	os-scheduling.h (Question1,2,3)
+
+tasks (Question1,2)
+tasks2 (Question1,2)
+taskY (Question3)
+
+
+
+=======================================================================================
+Compilation rules in the Makefile:
+
+make clean: remove all the files in obj/bin and all .txt files
+make all: clean and run RR policy, MFQ policy, and IORR policy
+make runrr: run tasks following RR policy (default quantum 4)
+make runmfq: run tasks following RR policy (default quantum 3)
+make runiorr: run tasks following IORR policy (default quantum 4)
+
+=======================================================================================
+Comments:
+
+Outputs of Question1, 2, 3 will be saved in sched-run-RR.txt, sched-run-MFQ.txt and sched-run-IORR.txt, respectively.
+
+Some modifications to the original files/functions:
+1. os-scheduling.h 
+    Add three attributes to struct task (Question3):
+        unsigned int IOTime; 
+        unsigned int IORate; 
+        unsigned int cyclesInIO;
+    to record the duration, frequency of I/O, and the current number of cycles spent to be suspended
+2. sched-simulator.c
+    Modify the section for reading tasks files in the main() function to accomodate for quantum input and features for I/O (Question1,2,3)
+3. sched-policies.c
+    Modify the admitNewTasks() function (Question1,2,3)
+        // Initialize cyclesInQuantum to be zero
+        tasks[i].cyclesInQuantum = 0; 
+        // Initialize cyclesInIO to be zero (used for IORR)
+        tasks[i].cyclesInIO = 0; 
+
+
+=======================================================================================
+Textual answers: 
+
+None

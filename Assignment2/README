@@ -1,0 +1,69 @@
+
+First Name: Jingyi
+
+Last Name: Zhao
+
+NYU ID: jz3676
+
+=======================================================================================
+Files submitted:
+
+include/
+    converters.h            (Q3)
+    decoder.h               (Q2)
+
+src/
+    converters.c            (Q3)
+    decoder.c               (Q2)
+    multi-converter.c       (Q3)
+    trace.c                 (Q1)
+
+=======================================================================================
+Targets in the Makefile:
+
+make clean: remove all the files in obj/bin/lib
+make all: run the programs of all the problems in this assignment
+make Q1: run Q1
+make Q1: run Q2
+make Q3: run Q3
+
+
+
+=======================================================================================
+Comments:
+
+
+
+=======================================================================================
+Textual answers: 
+
+Question 1 - Program trace
+
+How many child processes are created upon executing this program?
+6 (3 child processes and 3 grandchild processes)
+
+Represent the family tree of processes and give the output of each process.
+                
+                parent
+                /  |  \
+               /   |   \
+              /    |     \
+         child1  child2  child3
+                   |        |      
+                   |        |       
+             grandchild1 grandchild2
+                            |  
+                            |                   
+                        grandgrandchild1
+
+Output of child1: 
+    i = 0
+    j = 0
+Output of child2: 
+    i = 1
+Output of child3:
+    i = 2
+Output of grandchild1:
+    j = 1
+Output of grandgrandchild1:
+    j = 2

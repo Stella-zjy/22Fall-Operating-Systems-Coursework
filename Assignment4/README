@@ -1,0 +1,56 @@
+#######################
+# DINING PHILOSOPHERS #
+#######################
+
+This canvas contains the following files:
+a. README
+b. makefile
+c. include/philosophers.h
+d. src/dp_simulator.c
+e. src/philosophers-no-concurrency.c
+f. src/philosophers-bad.c
+g. src/philosophers.c
+
+(a) is the file you're reading right now.
+It contains explanations about how to work with this canvas.
+
+(b) is the file that regroups all of your compilation/run commands.
+        NB_PHILS    => sets the number of philosophers in the simulation
+        NB_MEALS    => sets the number of meals per philosopher in the simulation
+        build   => compiles your solution
+        run     => runs your solution
+                    You can terminate the execution of your program at any point with ctrl-C
+                    ctrl-C will kill all running processes, and trigger the cleanup function
+        clean   => deletes all the temporary files, including the log of the last execution
+        demos   => compiles two
+
+(c) and (d) provide the backbone of the simulation.
+(c) declares the constants, structures, and functions to build a simulation.
+Set the number of philosophers and the number of meals by modifying NPHIL and MEALS.
+(d) implements the simulator.
+
+(e) and (f) show bad examples of how to code a synchronization among philosophers.
+(e) forces philosophers to eat one at a time.
+(f) does something uncool that you have to explain below.
+NOTE: the default number of meals and philosophers for these examples is different; you can change these values in philosophers.h
+
+(g) is the canvas for your solution.
+
+
+#######################
+#       ANSWER        #
+#######################
+Write your explanation about what may happen when all philosophers are hungry simultaneously, and each of them picks up the chopstick to their left before picking up the chopstick to the right.
+
+When all philosophers are hungry simultaneously, everyone first picks up the chopstick to the left, then, when the last philosopher picks up the chopstick to the left, all the chopsticks are picked up. 
+Then, when one of the philosophers wants to pick up the chopstick to the right, the philosopher will be blocked in queue at instruction sem_wait(&(my_shm->sync[(rank+1)%NPHIL])); because there is no chopstick left to the right. This will be the case for all the philosophers to pick up the right chopstick. 
+That is to say, everyone will be blocked in queue to wait for the right hand side chopstick to be available. However, none of the philosophers can be released becasue none of them is able to have two chopsticks and finish a meal. In this case, a deadlock is going to happen and no one get released.
+
+#######################
+#      SOLUTION       #
+#######################
+Write a detailed explanation of your solution to the dining philosophers problem.
+
+1. We have N mutual exclusion semaphores for N chopsticks. Whenever a philosopher is about to pick up a chopstick i, sem_wait(i) is called for that chopstick; sem_post(i) will be called when chopstick i is put down by someone. The cleanup() function cleans all of them.
+2. As long as chopstick i is available, i.e., our philosopher is not blocked by sem_wait(i), we pick up this chopstick.
+3. We divide the philosophers into two categories based on their positions. Specifically, if the philosopher is sitting at an even rank (namely, 0, 2, 4, 6, ...), fist pick up the left chopstick and next the right; similarly, if the philosopher is sitting at an add rank (namely, 1, 3, 5, 7, ...), fist pick up the right chopstick and next the left.

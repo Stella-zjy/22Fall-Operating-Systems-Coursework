@@ -1,0 +1,35 @@
+First Name: Jingyi
+
+Last Name: Zhao
+
+NYU ID: jz3676
+
+=======================================================================================
+Files submitted:
+
+include:
+	upper.h: Q1, Q2
+
+src:
+    upper.c: Q1, Q2
+    multi-upper.c: Q1
+    multi-upper2.c: Q2
+    bounded-buffer.c: Q3
+
+f1, f2, f3, f4: Test files for Q1 and Q2   
+
+=======================================================================================
+Compilation rules in the Makefile:
+
+make clean: remove all the files in obj, bin and all the processed .UPPER.txt files
+make run1: run Q1, "bin/multi-upper f1 f2 f3 f4", process the four testing files
+make run2: run Q2, "bin/multi-upper2 f1 f2 f3 f4", process the four testing files
+make run3: run Q3
+
+=======================================================================================
+Comments:
+
+1. Adapt the original main function in upper.c and change it into upper_init() which transfers the file to upper case.
+2. upper.h declares the upper_init() function implemented in upper.c file.
+3. I give four testing files f1, f2, f3, f4 for Question 1 and 2.
+4. Variables NB_THREAD (Q2), NP, NC, MAX_CAP, NVAL (Q3) are customized at the beginning of each source file.
